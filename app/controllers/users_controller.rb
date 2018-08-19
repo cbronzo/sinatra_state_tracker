@@ -50,54 +50,31 @@ class UsersController < ApplicationController
       end
 
 
+      # edit user
+      get '/users/:id/edit' do
+        @user = User.find_by_id(params[:id])
+        erb :'users/edit'
+      end
+
+      #to update a user
+      patch '/users/:slug' do
+        @user = User.find_by_slug(params[:slug])
+          if @user.update(params["user"])
+            redirect "/users"
+          else
+            redirect "users/#{user.id}/edit"
+          end
+
+      end
+
+      #delete a user
+      delete '/users/:slug/delete' do
+        @user = User.find_by_slug(params[:slug]))
+          if @user
+            @user.delete
+          end
+        redirect '/users'
+      end
+
+
   end
-
-
-    # #users index route
-    # get '/users' do
-    #   @users = User.all
-    #   erb :'users/index'
-    # end
-    #
-    # #create new user
-    # get '/users/new' do
-    #   erb :'users/new'
-    # end
-    #
-    # #submit new user
-    # post '/users/new' do
-    # @user = User.new(params["user"])
-    #   if @user.save
-    #     redirect "/users"
-    #   else
-    #     redirect "/users/new"
-    #   end
-    # end
-    #
-    # # edit user
-    # get '/users/:id/edit' do
-    #   @user = User.find_by_id(params[:id])
-    #   erb :'users/edit'
-    # end
-    #
-    # #to update a user
-    # patch '/users/:id' do
-    #   @user = User.find_by_id(params[:id])
-    #     if @user.update(params["user"])
-    #       redirect "/users"
-    #     else
-    #       redirect "users/#{user.id}/edit"
-    #     end
-    #
-    # end
-    #
-    # #delete a user
-    # delete '/userss/:id/delete' do
-    #   @user = User.find_by_id(params[:id])
-    #     if @user
-    #       @user.delete
-    #     end
-    #   redirect '/users'
-    #
-    #
-    # end
