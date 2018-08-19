@@ -1,5 +1,3 @@
-class States < ActiveRecord::Base
-
-
-
+class State < ActiveRecord::Base
+  belongs_to :user
 end
