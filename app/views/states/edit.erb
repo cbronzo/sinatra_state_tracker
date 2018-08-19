@@ -1,0 +1,7 @@
+<h2> Edit State </h2>
+
+<form method="POST" action="/states/<%= @state.id %>">
+    <input id="hidden" type="hidden" name="_method" value="patch">
+    <input type="text" name="state_name" value="<%= @state.state_name %>">
+    <input type="submit" value="submit">
+</form>

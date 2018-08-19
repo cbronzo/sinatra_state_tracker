@@ -1,0 +1,6 @@
+<h1>Welcome, <%= current_user.username %></h1>
+
+<h2>Your States:</h2>
+  <% @user.states.each do |state| %>
+    <%= state.content %>
+  <% end %>
