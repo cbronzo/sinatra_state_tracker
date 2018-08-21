@@ -16,6 +16,10 @@ class UsersController < ApplicationController
     post '/signup' do
       if params[:username] == "" || params[:email] == "" || params[:password] == ""
         redirect to '/signup'
+      elsif
+        User.find_by(:username => params[:username])
+        "Duplicate username, please try again."
+        redirect to '/signup'
       else
         @user = User.create(params)
         session[:id] = @user.id
@@ -57,8 +61,8 @@ class UsersController < ApplicationController
       end
 
       #to update a user
-      patch '/users/:slug' do
-        @user = User.find_by_slug(params[:slug])
+      patch '/users/:id' do
+        @user = User.find_by_id(params[:id])
           if @user.update(params["user"])
             redirect "/users"
           else
@@ -68,13 +72,12 @@ class UsersController < ApplicationController
       end
 
       #delete a user
-      delete '/users/:slug/delete' do
-        @user = User.find_by_slug(params[:slug]))
+      delete '/users/:id/delete' do
+        @user = User.find_by_id(params[:id])
           if @user
-            @user.delete
+              @user.delete
           end
         redirect '/users'
       end
 
-
-  end
+end
