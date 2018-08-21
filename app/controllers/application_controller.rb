@@ -9,7 +9,7 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
   end
 
-  get "/" do
+  get '/' do
     erb :index
   end
 
@@ -22,5 +22,7 @@ class ApplicationController < Sinatra::Base
      User.find(session[:id])
    end
  end
+
+
 
 end
