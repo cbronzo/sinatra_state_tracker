@@ -1,3 +1,5 @@
+
+
 <p><%= @state.state_name %></p>
 
  <form method="POST" action="/states/<%= @state.id %>/delete">
@@ -6,25 +8,4 @@
 </form>
  <a href="/states/<%= @state.id %>/edit">Edit State </a>
 
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Show States</title>
-  </head>
-    <body>
-
-
-
-    Name: <%= @state.name %>
-    Region: <%= @state.region %>
-    Abbreviation: <%= @state.abbreviation %>
-
-    </body>
-
-</html> -->
+<a href="/logout"> Log Out </a>
