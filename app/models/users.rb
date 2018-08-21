@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
-  has_many :states
+  has_many :user_states
+  has_many :states, through: :user_states
+
+  validates :email, uniqueness: true
+  validates :username, uniqueness: true
 
    has_secure_password
 
