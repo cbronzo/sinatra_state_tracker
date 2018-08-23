@@ -19,16 +19,10 @@ class StatesController < ApplicationController
     end
   end
 
-
   post '/states' do
       if logged_in? && params[:state_name] != ""
-        @state = State.new(:state_name => params[:state_name])
-        # binding.pry
+        @state = State.create(:state_name => params[:state_name])
         @state.users << current_user
-
-        @state.save
-        # binding.pry
-
           if @state.errors.any?
               "Error, try again"
           else
@@ -49,6 +43,7 @@ class StatesController < ApplicationController
     end
   end
 
+
   get '/states/:id/edit' do
     if logged_in?
       @state = State.find_by_id(params[:id])
@@ -65,8 +60,8 @@ class StatesController < ApplicationController
 
     patch '/states/:id' do
       @state = State.find_by_id(params[:id])
-        if params[:state_name] != ""
-          @state.update(:state_name => params[:state_name])
+        if params[:state_name] != "" && @state.update(:state_name => params[:state][:state_name])
+          @state.update(:state_name => params[:state][:state_name])
           redirect to "/states/#{@state.id}"
         else
           redirect to "/states/#{@state.id}/edit"
@@ -84,6 +79,4 @@ class StatesController < ApplicationController
         redirect to '/login'
       end
   end
-
-
 end
