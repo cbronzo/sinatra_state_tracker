@@ -1,15 +1,15 @@
 User.create(
 
-  username: "caliz",
-  email: "c@me.com",
-  password_digest: "sinatra",
-  name: "Kate"
+  username: "Adam1",
+  email: "adam@me.com",
+  password: "adam",
+  name: "Adam"
 )
 
 User.create(
 
-  username: "johnny1",
-  email: "r@me.com",
-  password_digest: "test",
-  name: "John"
+  username: "Caliz1",
+  email: "caliz@me.com",
+  password: "caliz",
+  name: "Catherine"
 )
