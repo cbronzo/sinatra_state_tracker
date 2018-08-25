@@ -1,11 +1,25 @@
 
 
-<p><%= @state.state_name %></p>
+<p><h2><%= @state.state_name %></h2></p>
+
+
+  <!-- <%= User.all.count %> != 0 -->
+    Wow! <%= User.all.count %> other travelers have visited <%= @state.state_name %>!
+    <br>
+    That's 100% of all our travelers!
+  <!-- else
+    Cool! You're the first traveler to visit this state. No other of our travelers have been here yet. -->
+
+
+
 
  <form method="POST" action="/states/<%= @state.id %>/delete">
     <input id="hidden" type="hidden" name="_method" value="Delete">
     <input type="submit" value="Delete State">
 </form>
- <a href="/states/<%= @state.id %>/edit">Edit State </a>
 
+<a href="/states"> View My States </a>
+<br>
+<a href="/states/<%= @state.id %>/edit">Edit State </a>
+<br>
 <a href="/logout"> Log Out </a>

@@ -1,12 +1,22 @@
-<p> Welcome, <%= current_user.username %>
-<br><h2> States: </h2>
-</br>
+<h2><p> Welcome, <%= current_user.username %></h2>
+<br><h3> I Have Been To the Following States:</h3>
+<br><h4>I have been to <%= State.count %> of the 50 states in America!</h4>
+<button type="button"><a href="/states/new"> Add a New State to My List </a>
+</button>
+<br>
+<br>
 
  <% @states.each do |state| %>
-     <%= state.state_name %>
+    <%= state.id %>.
+    <a href='/states'><%= state.state_name %></a>
      <br><br>
  <% end %>
 
-<a href="/states/new"> Add a State to Your List </a>
+
+
+
+ <br>
+<br>
+<a href="/"> Home </a>
 <br>
 <a href="/logout"> Log Out </a>
