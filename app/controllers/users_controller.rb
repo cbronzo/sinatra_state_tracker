@@ -1,6 +1,12 @@
 require 'pry'
 class UsersController < ApplicationController
 
+  get '/users' do
+    @users = User.all
+    erb :'/users/index'
+
+  end
+
   get '/users/:slug' do
     @user = User.find_by_slug(params[:slug])
     erb :'/users/show'
@@ -53,31 +59,58 @@ class UsersController < ApplicationController
         end
       end
 
+    #   # edit user
+    #   get '/users/:slug/edit' do
+    #     if logged_in?
+    #       @user = User.find_by_slug(params[:slug])
+    #       if @user && current_user
+    #         erb :'users/edit'
+    #       end
+    #     else
+    #       redirect to '/login'
+    #     end
+    #   end
+    #
+    #
+    #   # #to update a user
+    #   patch '/users/:slug' do
+    #     @user = User.find_by_slug(params[:slug])
+    #     binding.pry
+    #       if params[:user] != ""
+    #         @user.update(:username => params[:user][:username])
+    #         @user.update(:name => params[:user][:name])
+    #         @user.update(:email => params[:user][:email])
+    #         @user.update(:password_digest => params[:user][:password_digest])
+    #           redirect to "/users/#{@user.slug}"
+    #       else
+    #         redirect to "/users/#{@user.slug}/edit"
+    #       end
+    #   end
+    #
+    #
+    #
+    #    #delete a user
+    #   delete '/users/:slug/delete' do
+    #     if logged_in?
+    #       @user = User.find_by_slug(params[:slug])
+    #         if @user && current_user
+    #             @user.destroy
+    #         end
+    #       redirect to '/'
+    #     else
+    #       redirect to '/signup'
+    #     end
+    # end
 
-      # # edit user
-      # get '/users/:id/edit' do
-      #   @user = User.find_by_id(params[:id])
-      #   erb :'users/edit'
-      # end
-      #
-      # #to update a user
-      # patch '/users/:id' do
-      #   @user = User.find_by_id(params[:id])
-      #     if @user.update(params["user"])
-      #       redirect "/users"
-      #     else
-      #       redirect "users/#{user.id}/edit"
-      #     end
-      #
-      # end
-      #
-      # #delete a user
-      # delete '/users/:id/delete' do
-      #   @user = User.find_by_id(params[:id])
+
+      #   @user = User.find_by_slug(params[:slug])
       #     if @user
       #         @user.delete
       #     end
       #   redirect '/users'
       # end
+
+
+
 
 end

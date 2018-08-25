@@ -1,18 +1,19 @@
-<h1>Users Index</h1>
+<h1>USA Travelers</h1>
   <ul>
-    <li><a href="/users/new">Create a New Account</a></li>
   </ul>
 
-  <h3>User List</h3>
+  <h3>User List:</h3>
     <ul>
       <% @users.each do |user| %>
-        <li>Username: <%= @user.username %></li>
-        <li>Name: <%= @user.name %></li>
+          <li><%= user.username %>
+          has been to <%= State.count %> out of 50 states!</li>
+        <% end %>
 
-          <form method="POST" action='/users/<%= @user.id %>/delete'>
-            <input id="hidden" type="hidden" name="_method" value="delete">
-            <input type="submit" value="delete">
-          </form>
-
-      <% end %>
     </ul>
+
+<br>
+<br>
+
+    <a href='/users/new'>Create a New Account</a>
+    <br>
+    <a href='/users/:slug'>Go to My Account</a>  #need to fix
