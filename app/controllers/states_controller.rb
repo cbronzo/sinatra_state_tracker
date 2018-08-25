@@ -3,6 +3,7 @@ class StatesController < ApplicationController
 
   get '/states' do
     if logged_in?
+        @user = current_user
         @states = current_user.states
       erb :'states/states'
     else
@@ -37,7 +38,11 @@ class StatesController < ApplicationController
   get '/states/:id' do
     if logged_in?
       @state = State.find_by_id(params[:id])
-      erb :'/states/show'
+        if @state != nil
+          erb :'/states/show'
+        else
+          redirect to '/states'
+        end
     else
       redirect to '/login'
     end
