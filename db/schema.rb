@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20180819184826) do
 
   create_table "states", force: :cascade do |t|
     t.string "state_name"
+    t.string "abbreviation"
   end
 
   create_table "user_states", force: :cascade do |t|
