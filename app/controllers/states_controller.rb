@@ -5,6 +5,7 @@ class StatesController < ApplicationController
     if logged_in?
         @user = current_user
         @states = current_user.states
+
       erb :'states/states'
     else
       redirect to '/login'
@@ -22,22 +23,27 @@ class StatesController < ApplicationController
 
   post '/states' do
       if logged_in? && params[:state_name] != ""
-        @state = State.create(:state_name => params[:state_name])
-        @state.users << current_user
-          if @state.errors.any?
-              "Error, try again"
-          else
+            params[:state_name].each do |state_name|
+              @state = State.find_or_create_by(:state_name => state_name)
+
+              if @state.users.include?(current_user)
+                "You have already added this state."
+              else
+                @state.users << current_user
+              end
+            end
             redirect "/states"
-          end
       else
         redirect to "/states/new"
       end
     end
 
 
+
   get '/states/:id' do
     if logged_in?
       @state = State.find_by_id(params[:id])
+
         if @state != nil
           erb :'/states/show'
         else
