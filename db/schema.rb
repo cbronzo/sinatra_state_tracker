@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180819184826) do
+ActiveRecord::Schema.define(version: 20180831021234) do
 
   create_table "states", force: :cascade do |t|
     t.string "state_name"
-    t.string "abbreviation"
   end
 
   create_table "user_states", force: :cascade do |t|
     t.integer "user_id"
     t.integer "state_id"
+    t.string  "memory"
   end
 
   create_table "users", force: :cascade do |t|
