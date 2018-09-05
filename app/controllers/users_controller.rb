@@ -2,15 +2,26 @@ require 'pry'
 class UsersController < ApplicationController
 
   get '/users' do
+    @user_items_count = UserState.group(:user_id).count
     @users = User.all
-    erb :'/users/index'
 
+    erb :'/users/index'
   end
 
-  get '/users/:slug' do
-    @user = User.find_by_slug(params[:slug])
-    erb :'/users/show'
-    end
+  # get '/users/:slug' do
+  #   if logged_in?
+  #     @user = User.find_by_slug(params[:slug])
+  #       if @user.slug !=nil
+  #         erb :'/states'
+  #       else
+  #         redirect '/users'
+  #       end
+  #   else
+  #     redirect '/users'
+  #   end
+  # end
+
+
 
     get '/signup' do
       if logged_in?
@@ -109,8 +120,4 @@ class UsersController < ApplicationController
       #     end
       #   redirect '/users'
       # end
-
-
-
-
 end
