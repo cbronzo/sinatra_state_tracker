@@ -1,19 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
 <h1>USA Travelers</h1>
   <ul>
   </ul>
 
-  <h3>User List:</h3>
+  <h3>How Many States Have Other Travelers Been To?</h3>
     <ul>
-      <% @users.each do |user| %>
-          <li><%= user.username %>
-          has been to <%= State.count %> out of 50 states!</li>
-        <% end %>
+
+
+
+
+    <% @users.each do |user| %>
+      <li><%= user.username %> has been to
+       <%= @user_items_count[user.id] || 0 %> out of 50 states!</li>
+    <% end %>
+
+
+
+
+
+
+
 
     </ul>
 
 <br>
 <br>
 
-    <a href='/users/new'>Create a New Account</a>
-    <br>
-    <a href='/users/:slug'>Go to My Account</a>  #need to fix
+    <% if !logged_in? %>
+      <a href='/'>Home</a>
+      <br>
+      <a href='login'>Login</a>
+    <% else %>
+      <a href='/states'>Go To My Account</a>
+      <br>
+      <a href='logout'>Logout</a>
+    <% end %>
+
+  </head>
+</html>
