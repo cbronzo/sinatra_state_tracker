@@ -28,8 +28,10 @@ class StatesController < ApplicationController
 
               if @state.users.include?(current_user)
                 "You have already added this state."
+
               else
                 @state.users << current_user
+                # binding.pry
               end
             end
             redirect "/states"
@@ -54,6 +56,35 @@ class StatesController < ApplicationController
     end
   end
 
+  get '/states/:id/add_details' do
+    if logged_in?
+      @state = State.find_by_id(params[:id])
+      if @state && current_user
+        erb :'states/add_details'
+      else
+        redirect to '/states'
+      end
+    else
+      redirect to '/login'
+    end
+  end
+
+  post '/states/:id/add_details' do
+    if logged_in?
+        if UserState.exists?
+          @userstate = UserState.find_or_initialize_by(state_id: params[:id], user_id: current_user.id)
+          @userstate.memory = params[:memory]
+          @userstate.save
+          redirect to "/states/#{@state.id}"
+        else
+          "Error, you have not added this state to your list yet. Please add and then come back."
+          redirect to '/states'
+        end
+    else
+      redirect to '/login'
+    end
+  end
+
 
   get '/states/:id/edit' do
     if logged_in?
@@ -71,8 +102,8 @@ class StatesController < ApplicationController
 
     patch '/states/:id' do
       @state = State.find_by_id(params[:id])
-        if params[:state_name] != "" && @state.update(:state_name => params[:state][:state_name])
-          @state.update(:state_name => params[:state][:state_name])
+        if params[:memory] != ""
+          @state.update(:memory => params[:state][:memory])
           redirect to "/states/#{@state.id}"
         else
           redirect to "/states/#{@state.id}/edit"
