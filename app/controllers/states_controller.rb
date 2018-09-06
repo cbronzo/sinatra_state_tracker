@@ -1,5 +1,8 @@
 require 'pry'
+require 'rack-flash'
+
 class StatesController < ApplicationController
+  use Rack::Flash
 
   get '/states' do
     if logged_in?
@@ -27,8 +30,8 @@ class StatesController < ApplicationController
               @state = State.find_or_create_by(:state_name => state_name)
 
               if @state.users.include?(current_user)
-                "You have already added this state."
-
+                flash[:message] = "You have already added this state."
+                erb :'/states'
               else
                 @state.users << current_user
                 # binding.pry
@@ -77,9 +80,9 @@ class StatesController < ApplicationController
           @userstate.save
           @state = State.find_by_id(params[:id])
           redirect to "/states/#{@state.id}"
-        else
-          "Error, you have not added this state to your list yet. Please add and then come back."
-          redirect to '/states'
+        else !UserState.exists?
+          flash[:message] = "Error, you have not added this state to your list yet. Please add and then come back."
+          erb :'/states'
         end
     else
       redirect to '/login'
@@ -133,9 +136,12 @@ class StatesController < ApplicationController
 
     delete '/states/:id/delete' do
       if logged_in?
-        @state = State.find_by_id(params[:id])
-          if @state && current_user
-              @state.destroy
+        @userstate = UserState.find_by(state_id: params[:id], user_id: current_user.id)
+        # @state = State.find_by_id(params[:id])
+          if @userstate && current_user
+              @userstate.delete
+              
+
           end
         redirect to '/states'
       else
