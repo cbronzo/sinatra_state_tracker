@@ -25,6 +25,7 @@ and then go to
 
 http://localhost:9393/
 
+Create an account to start tracking your states!
 
 ## Contributing
 
