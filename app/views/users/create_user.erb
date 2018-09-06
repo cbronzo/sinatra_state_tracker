@@ -8,8 +8,28 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
+    <% if flash.has?(:message) %>
+      <%= flash[:message] %>
+    <% end %>
+
 <h1>Create a New Account</h1>
 <h3>Please enter the following details:</h3>
+
+
+<style>
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+</style>
 
 <br>
 <form method="POST" action="/signup">
@@ -18,10 +38,12 @@
   <p>Choose a Username:</p> <input type="text" name="username"></p>
   <p>Choose a Password:</p> <input type="password" name="password"></b></p>
   <p><sup>All fields required*</p></sup>
-  <input class="submit" type="Submit" value="Create My Account!">
+  <input class="button" class="submit" type="Submit" value="Create My Account!">
 </form>
 
 <br>
+<br>
+<a href="/login"> Log In</a>
 <br>
 <a href="/"> Home </a>
 <br>
