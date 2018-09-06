@@ -1,10 +1,12 @@
 require 'pry'
+require 'rack-flash'
+
 class UsersController < ApplicationController
+  use Rack::Flash
 
   get '/users' do
     @user_items_count = UserState.group(:user_id).count
     @users = User.all
-
     erb :'/users/index'
   end
 
@@ -31,12 +33,16 @@ class UsersController < ApplicationController
     end
 
     post '/signup' do
-      if params[:username] == "" || params[:email] == "" || params[:password] == ""
-        redirect to '/signup'
+      if params[:username] == "" || params[:email] == "" ||   params[:password] == "" || params[:name] == ""
+        flash[:message] = "All fields are required! Please try again."
+        erb :'users/create_user'
+      elsif User.find_by(:email => params[:email])
+          flash[:message] = "Email already in use. Please try again."
+          erb :'users/create_user'
       elsif
         User.find_by(:username => params[:username])
-        "Duplicate username, please try again."
-        redirect to '/signup'
+        flash[:message] = "Username already exists, please try again."
+        erb :'users/create_user'
       else
         @user = User.create(params)
         session[:id] = @user.id
@@ -57,7 +63,8 @@ class UsersController < ApplicationController
             session[:id] = @user.id
             redirect :'/states'
           else
-            redirect to '/signup'
+            flash[:message] = "No user found. Please try again or create an account."
+            erb :'users/create_user'
          end
       end
 
