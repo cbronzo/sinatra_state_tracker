@@ -1,27 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
 <div class="container">
   <!-- <header><img src="images/corneal-small.png" class="img-responsive main-image"></header> -->
   <div class="col-md-8 col-md-offset-2">
     <h2>Welcome to the State Tracker!</h2>
-    <h3>How Many States in the US Have You Been To?</h3>
+    <h4>How Many US States Have You Traveled To?</h4>
     <img src="images/us-map.jpg" alt="US Map">
 
     <div class="content">
     </div>
 
+
+    <style>
+    .button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+    </style>
+
     <% if logged_in? %>
-    <p><h3>Welcome, <%= current_user.username %></h3></p>
-    <a href="/states/new"> Add a State </a><br><br>
+    <a href="/states" class="button">View The States I've Visited</a>
+  <a href="/states/new" class="button">Add a New State to My List</a><br><br>
+  <a href="/users">Click here</a> to see how many states other travelers have been to!</a>
+  <br>
     <a href="/logout"> Log Out </a>
 
 
+
   <% else %>
-    <p><h3>To get started, please select one of the following:</h3></p>
-    New user? <a href="/signup">Create an Account.</a>
+    <p><h4>To get started, please select one of the following:</h4></p>
+    New User? <a href="/signup">Create an Account</a>
     <br>
     <br>
-    Already have an account? <a href="/login"> Log In.</a>
+    Existing User? <a href="/login"> Log In</a>
+    <br>
+      <br>
+    or
+      <br>
+    <br>
+    <a href="/users">Click here</a> to see how many states other travelers have been to!</a>
   <% end %>
 
 
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
   </div>
 </div>
+  </head>
+</html>

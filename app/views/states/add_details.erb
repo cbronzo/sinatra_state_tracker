@@ -9,25 +9,40 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-<h2> Add State Details</h2>
+<h2> Add Details</h2>
+
+<style>
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+</style>
 
 
-Reason for visiting, or favorite memory of <%= @state.state_name %>?
+<h5>What's your favorite memory of <%= @state.state_name %>?</h5>
+<br>
   <form method="POST" action"/states/<%= @state.id %>">
     <textarea name="memory" style="width:200px;height:100px;"></textarea>
     <br>
-    <input type="submit" value= "Add Memory!">
+    <input class="button" type="submit" value= "Add Memory!">
 </form>
 <br>
+
 <br>
+<a href="/states"> My State List </a>
 <br>
-
-
-
-
-
-
+<a href="/">Home</a>
+<br>
 <a href="/logout"> Log Out </a>
+
 
 </head>
 </html>

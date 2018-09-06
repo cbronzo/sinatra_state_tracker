@@ -12,33 +12,56 @@
 
   <% if @state.users.count != 0 %>
         <%if @state.users.count == 1%>
-          Only <%= @state.users.count %> traveler has visited <%= @state.state_name %>!
+      <h5>Only <%= @state.users.count %> traveler has visited <%= @state.state_name %>! That must be you!</h5>
           <% else %>
-          Wow! <%= @state.users.count %> travelers have visited <%= @state.state_name %>!
-          <br>
-          That's <%= (@state.users.count.to_i / User.all.count)*100 %>% of all of our travelers!
+          <h5>Wow! <%= @state.users.count %> travelers have visited <%= @state.state_name %>!</h5>
+          <i><h6>That's <%= (@state.users.count.to_f / User.all.count)*100 %>% of all of our travelers!</h6></i>
+
         <%  end %>
   <% else %>
-    No travelers have visited yet.
+    <h5>No travelers have visited yet.</h5>
 
   <% end %>
 
 
   <% @userstate = UserState.find_or_initialize_by(state_id: params[:id], user_id: current_user.id) %>
   <% if @userstate.memory%>
-      <br><br>My favorite memory:
-      <br><%=  @userstate.memory%>
+      <br><h4>My favorite memory:</h4>
+      <i><h5><%=  @userstate.memory%></h5></i>
     <%end%>
 
 
+    <style>
+    .button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+    </style>
+
+
     <% if @userstate.memory%>
+      <br>
       <form method="GET" action="/states/<%= @state.id %>/edit">
-       <input type="submit" value="Edit State Info">
+       <input type="submit" value="Edit Memory">
+        </form>
+<form method="POST" action="/states/<%= @state.id %>/add_details/delete">
+            <input id="hidden" type="hidden" name="_method" value="Delete">
+            <input type="submit" value="Delete Memory">
         </form>
 
      <%else%>
+     <br>
+     <b>What is your favorite memory of <%= @state.state_name %>?</b>
       <form method="GET" action="/states/<%= @state.id %>/add_details">
-         <input type="submit" value="Add State Info">
+         <input class="button" type="submit" value="Add Memory">
          </form>
 
     <%end%>
@@ -47,9 +70,16 @@
 
 <br>
 <br>
-<a href="/states"> View My States </a>
+
+<form method="POST" action="/states/<%= @state.id %>/delete">
+    <input id="hidden" type="hidden" name="_method" value="Delete">
+    <input class="button" type="submit" value="Delete <%= @state.state_name %> from My List">
+</form>
 <br>
 
+<a href="/states"> Back to My States </a>
+<br>
+<a href="/">Home</a>
 <br>
 <a href="/logout"> Log Out </a>
 
