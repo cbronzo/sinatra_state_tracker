@@ -8,17 +8,22 @@ Welcome to the MVC Sinatra State Tracker application, built using CRUD & Active 
 
 Clone this repo and run
 
-```bundle install``
+```bundle install```
+
 
 Then migrate the databases by running
 
 ```db:migrate```
 
+
 To see the application in your browser, run
 
 ```shotgun```
 
-and then go to http://localhost:9393/
+
+and then go to
+
+http://localhost:9393/
 
 
 ## Contributing
