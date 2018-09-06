@@ -75,6 +75,7 @@ class StatesController < ApplicationController
           @userstate = UserState.find_or_initialize_by(state_id: params[:id], user_id: current_user.id)
           @userstate.memory = params[:memory]
           @userstate.save
+          @state = State.find_by_id(params[:id])
           redirect to "/states/#{@state.id}"
         else
           "Error, you have not added this state to your list yet. Please add and then come back."
@@ -100,15 +101,35 @@ class StatesController < ApplicationController
   end
 
 
-    patch '/states/:id' do
+    patch '/states/:id/edit' do
       @state = State.find_by_id(params[:id])
+      @userstate = UserState.find_by(state_id: params[:id], user_id: current_user.id)
         if params[:memory] != ""
-          @state.update(:memory => params[:state][:memory])
+          @userstate.update(:memory => params[:memory])
           redirect to "/states/#{@state.id}"
         else
           redirect to "/states/#{@state.id}/edit"
         end
     end
+
+
+        delete '/states/:id/add_details/delete' do
+          if logged_in?
+            @userstate = UserState.find_or_initialize_by(state_id: params[:id], user_id: current_user.id)
+            @userstate.memory = params[:memory]
+            @userstate.save
+              if @userstate.memory && current_user
+                  @userstate.memory.delete
+              end
+            @state = State.find_by_id(params[:id])
+            redirect to "/states/#{@state.id}"
+          else
+            redirect to '/login'
+          end
+      end
+
+
+
 
     delete '/states/:id/delete' do
       if logged_in?
