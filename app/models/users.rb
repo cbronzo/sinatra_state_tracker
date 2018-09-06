@@ -2,10 +2,15 @@ class User < ActiveRecord::Base
   has_many :user_states
   has_many :states, through: :user_states
 
+
   validates :email, uniqueness: true
   validates :username, uniqueness: true
+  validates :name, presence: true
+  validates :password, presence: true
 
-   has_secure_password
+
+
+  has_secure_password
 
   def slug
     username.downcase.gsub(" ","-")
