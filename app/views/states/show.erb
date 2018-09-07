@@ -15,7 +15,7 @@
       <h5>Only <%= @state.users.count %> traveler has visited <%= @state.state_name %>! That must be you!</h5>
           <% else %>
           <h5>Wow! <%= @state.users.count %> travelers have visited <%= @state.state_name %>!</h5>
-          <i><h6>That's <%= (@state.users.count.to_f / User.all.count)*100 %>% of all of our travelers!</h6></i>
+          <i><h6>That's <%= ((@state.users.count.to_f / User.all.count)*100).round %>% of all of our travelers!</h6></i>
 
         <%  end %>
   <% else %>
