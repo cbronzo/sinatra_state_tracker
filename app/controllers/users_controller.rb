@@ -10,74 +10,61 @@ class UsersController < ApplicationController
     erb :'/users/index'
   end
 
-  # get '/users/:slug' do
-  #   if logged_in?
-  #     @user = User.find_by_slug(params[:slug])
-  #       if @user.slug !=nil
-  #         erb :'/states'
-  #       else
-  #         redirect '/users'
-  #       end
-  #   else
-  #     redirect '/users'
-  #   end
-  # end
-
-
-
-    get '/signup' do
-      if logged_in?
-        redirect to '/states'
-      end
-      erb :'/users/create_user'
+  get '/signup' do
+    if logged_in?
+      redirect to '/states'
     end
+    erb :'/users/create_user'
+  end
 
-    post '/signup' do
-      if params[:username] == "" || params[:email] == "" ||   params[:password] == "" || params[:name] == ""
-        flash[:message] = "All fields are required! Please try again."
+  post '/signup' do
+    if params[:username] == "" || params[:email] == "" ||  params[:password] == "" || params[:name] == ""
+      flash[:message] = "All fields are required! Please try again."
+      erb :'users/create_user'
+    elsif User.find_by(:email => params[:email])
+        flash[:message] = "Email already in use. Please try again."
         erb :'users/create_user'
-      elsif User.find_by(:email => params[:email])
-          flash[:message] = "Email already in use. Please try again."
-          erb :'users/create_user'
-      elsif
-        User.find_by(:username => params[:username])
-        flash[:message] = "Username already exists, please try again."
-        erb :'users/create_user'
-      else
-        @user = User.create(params)
+    elsif
+      User.find_by(:username => params[:username])
+      flash[:message] = "Username already exists, please try again."
+      erb :'users/create_user'
+    else
+      @user = User.create(params)
+      session[:id] = @user.id
+      redirect :'/states'
+    end
+  end
+
+  get '/login' do
+    if logged_in?
+      redirect to '/states'
+    end
+    erb :'/users/login'
+  end
+
+  post '/login' do
+    @user = User.find_by(:username => params[:username])
+      if @user && @user.authenticate(params[:password])
         session[:id] = @user.id
         redirect :'/states'
-      end
+      else
+        flash[:message] = "No user found. Please try again or create an account."
+        erb :'users/create_user'
+     end
+  end
+
+  get '/logout' do
+    if logged_in?
+        session.clear
+        redirect to '/login'
+    else
+      redirect to '/'
     end
+  end
 
-    get '/login' do
-      if logged_in?
-        redirect to '/states'
-      end
-        erb :'/users/login'
-    end
+end
 
-      post '/login' do
-        @user = User.find_by(:username => params[:username])
-         if @user && @user.authenticate(params[:password])
-            session[:id] = @user.id
-            redirect :'/states'
-          else
-            flash[:message] = "No user found. Please try again or create an account."
-            erb :'users/create_user'
-         end
-      end
-
-      get '/logout' do
-        if logged_in?
-            session.clear
-            redirect to '/login'
-        else
-          redirect to '/'
-        end
-      end
-
-    #   # edit user
+#   # edit user
     #   get '/users/:slug/edit' do
     #     if logged_in?
     #       @user = User.find_by_slug(params[:slug])
@@ -127,4 +114,17 @@ class UsersController < ApplicationController
       #     end
       #   redirect '/users'
       # end
-end
+
+
+      # get '/users/:slug' do
+      #   if logged_in?
+      #     @user = User.find_by_slug(params[:slug])
+      #       if @user.slug !=nil
+      #         erb :'/states'
+      #       else
+      #         redirect '/users'
+      #       end
+      #   else
+      #     redirect '/users'
+      #   end
+      # end
