@@ -23,6 +23,11 @@ class ApplicationController < Sinatra::Base
    end
  end
 
+ def create_user_and_login
+   @user = User.create(params)
+   session[:id] = @user.id
+ end
+
 
 
 end

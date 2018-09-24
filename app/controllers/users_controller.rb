@@ -24,13 +24,11 @@ class UsersController < ApplicationController
     elsif User.find_by(:email => params[:email])
         flash[:message] = "Email already in use. Please try again."
         erb :'users/create_user'
-    elsif
-      User.find_by(:username => params[:username])
+    elsif User.find_by(:username => params[:username])
       flash[:message] = "Username already exists, please try again."
       erb :'users/create_user'
     else
-      @user = User.create(params)
-      session[:id] = @user.id
+      create_user_and_login
       redirect :'/states'
     end
   end

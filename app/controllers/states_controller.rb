@@ -39,27 +39,6 @@ class StatesController < ApplicationController
         redirect to "/states/new"
       end
   end
-  #
-  # post '/states' do
-  #   if logged_in? && params[:state_name] != ""
-  #         params[:state_name].each do |state_name|
-  #           @state = State.find_or_create_by(:state_name => state_name)
-  #
-  #           if @state.users.include?(current_user)
-  #             "You have already added this state."
-  #
-  #           else
-  #             @state.users << current_user
-  #             # binding.pry
-  #           end
-  #         end
-  #         redirect "/states"
-  #   else
-  #     redirect to "/states/new"
-  #   end
-  # end
-
-
 
   get '/states/:id' do
     if logged_in?
