@@ -1,4 +1,4 @@
-require 'pry'
+
 require 'rack-flash'
 
 class UsersController < ApplicationController
